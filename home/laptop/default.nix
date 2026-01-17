@@ -11,12 +11,12 @@
         ../shared/git.nix
         # ../shared/ghostty.nix
         ../shared/tmux.nix
-        ../shared/java.nix
-        # ../nixos/hyprland.nix
-        ../nixos/sway.nix
+        # ../shared/java.nix
+        ../nixos/hyprland.nix
+        # ../nixos/sway.nix
         ../nixos/kitty.nix
-        ../nixos/waybar.nix
-        ../nixos/rofi.nix
+        # ../nixos/waybar.nix
+        # ../nixos/rofi.nix
     ];
 
     home.username = hostConfig.username;

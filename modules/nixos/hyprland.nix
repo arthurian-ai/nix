@@ -31,15 +31,15 @@
   # services.hypridle.enable = true;
 
     environment.systemPackages = with pkgs; [
-        waybar
-        dunst
-        libnotify
-        rofi
-        swww
-        hyprpolkitagent #should be in HM?
-        wl-clipboard
-        xdg-desktop-portal-hyprland
-        kdePackages.dolphin
+        # waybar
+        # dunst
+        # libnotify
+        # rofi
+        # swww
+        # hyprpolkitagent #should be in HM?
+        # wl-clipboard
+        # xdg-desktop-portal-hyprland
+        # kdePackages.dolphin
 
         # pkgs.eww
   
@@ -55,15 +55,15 @@
 
     security.polkit.enable = true;
 
-    xdg.portal = {
-            enable = true;
-            # extraProtals = [ pkgs.xdg-desktop-portal-hyprland ];
-    };
+    # xdg.portal = {
+    #         enable = true;
+    #         # extraProtals = [ pkgs.xdg-desktop-portal-hyprland ];
+    # };
 
-    services.displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
-    };
+    # services.displayManager.sddm = {
+    #     enable = true;
+    #     wayland.enable = true;
+    # };
 
     # Enable sound with pipewire
     # sound.enable = true;
