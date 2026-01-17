@@ -15,6 +15,7 @@
         ../nixos/hyprland.nix
         # ../nixos/sway.nix
         ../nixos/kitty.nix
+        ../nixos/noctalia.nix
         # ../nixos/waybar.nix
         # ../nixos/rofi.nix
     ];

@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-	nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
+	inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
         inputs.home-manager.nixosModules.home-manager
 	inputs.stylix.nixosModules.stylix
 	../../modules/nixos/stylix.nix
@@ -36,11 +36,15 @@
 
 	nix.settings = {
 		experimental-features = "nix-command flakes";
-	
+
     		substituters = ["https://hyprland.cachix.org"];
     		trusted-substituters = ["https://hyprland.cachix.org"];
     		trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
  	};
+
+  # Enable zsh and set as default shell
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -49,7 +53,7 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = hostConfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -59,22 +63,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = hostConfig.timezone;
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
+  i18n.defaultLocale = hostConfig.locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+    LC_ADDRESS = hostConfig.locale;
+    LC_IDENTIFICATION = hostConfig.locale;
+    LC_MEASUREMENT = hostConfig.locale;
+    LC_MONETARY = hostConfig.locale;
+    LC_NAME = hostConfig.locale;
+    LC_NUMERIC = hostConfig.locale;
+    LC_PAPER = hostConfig.locale;
+    LC_TELEPHONE = hostConfig.locale;
+    LC_TIME = hostConfig.locale;
   };
 
   # Enable the X11 windowing system.
@@ -112,14 +113,11 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.curtis = {
+  users.users.${hostConfig.username} = {
     isNormalUser = true;
-    description = "Curtis Mitchell";
+    description = hostConfig.username;
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+    packages = with pkgs; [];
   };
 
   # Install firefox.
