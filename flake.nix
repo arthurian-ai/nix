@@ -27,9 +27,13 @@
 		url = "github:noctalia-dev/noctalia-shell";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
+	zen-browser = {
+		url = "github:youwen5/zen-browser-flake";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
     };
 
-    outputs = inputs@{self, nixpkgs, nix-darwin, nix-homebrew, home-manager, hyprland, hyprland-plugins, stylix, nixos-hardware, noctalia}:
+    outputs = inputs@{self, nixpkgs, nix-darwin, nix-homebrew, home-manager, hyprland, hyprland-plugins, stylix, nixos-hardware, noctalia, zen-browser}:
         let
             # Common settings
             commonConfig = {

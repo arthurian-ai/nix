@@ -9,6 +9,7 @@
         ../shared/eza.nix
         ../shared/fzf.nix
         ../shared/git.nix
+        ../shared/neovim.nix
         # ../shared/ghostty.nix
         ../shared/tmux.nix
         # ../shared/java.nix

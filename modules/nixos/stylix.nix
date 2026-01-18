@@ -1,8 +1,10 @@
 { pkgs, ... }:
 {
     stylix.enable = true;
-    stylix.image = ../../wallpapers/gruvbox-1.jpg;
-    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    # stylix.image = ../../wallpapers/gruvbox-1.jpg;
+    # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    stylix.image = ../../wallpapers/nord-2.png;
+    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
     stylix.polarity = "dark";
 
     # Fonts
@@ -31,11 +33,11 @@
     };
 
     # Cursor theme (consolidated here - Stylix sets home.pointerCursor automatically)
-    # stylix.cursor = {
-    #     name = "Adwaita";
-    #     package = pkgs.adwaita-icon-theme;
-    #     size = 48;
-    # };
+    stylix.cursor = {
+        name = "Nordzy";
+        package = pkgs.nordzy-cursor-theme;
+        size = 24;
+    };
 
     # Cursor environment variables for Wayland compatibility
     # environment.sessionVariables = {

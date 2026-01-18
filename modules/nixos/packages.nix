@@ -27,6 +27,9 @@
         # kitty
         claude-code
         # ghostty
-        alacritty
+        # alacritty
+	keyd
+	inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    	protonvpn-gui
     ];
 }
