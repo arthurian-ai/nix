@@ -121,6 +121,11 @@
 			"$mod SHIFT, S, movetoworkspace, 15"
 			"$mod SHIFT, O, movetoworkspace, 16"
 
+			"$mod, left, movefocus, l"
+			"$mod, right, movefocus, r"
+			"$mod, up, movefocus, u"
+			"$mod, down, movefocus, d"
+
 			"$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
 			# "$mod, S, exec, noctalia-shell ipc call controlCenter toggle"
 			# "$mod, comma, exec, noctalia-shell ipc call settings toggle"
