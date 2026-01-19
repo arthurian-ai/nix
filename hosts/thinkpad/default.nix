@@ -19,23 +19,27 @@
 	../../modules/nixos/fonts.nix
 	../../modules/nixos/thunar.nix
 	../../modules/nixos/regreet.nix
+	../../modules/nixos/virtualization.nix
     ];
-
-  environment.sessionVariables = {
-	  NIXOS_OZONE_WL = "1";
-  };
 
     # For noctalia shell
     hardware.bluetooth.enable = true;
     services.tuned.enable = true;
     services.upower.enable = true;
 
+    # Fingerprint reader
+    services.fprintd.enable = true;
+
     # Lid close behavior
-    services.logind = {
-      lidSwitch = "suspend";
-      lidSwitchExternalPower = "suspend";
-      lidSwitchDocked = "ignore";
-    };
+    # services.logind = {
+    #   lidSwitch = "suspend";
+    #   lidSwitchExternalPower = "suspend";
+    #   lidSwitchDocked = "ignore";
+    #   # lidSwitchIgnoreInhibited = true;
+    #   extraConfig = ''
+    #     HoldoffTimeoutSec=2s
+    #   '';
+    # };
 
    home-manager = {
         extraSpecialArgs = { inherit inputs hostConfig; };
@@ -127,7 +131,7 @@
   users.users.${hostConfig.username} = {
     isNormalUser = true;
     description = hostConfig.username;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     packages = with pkgs; [];
   };
 

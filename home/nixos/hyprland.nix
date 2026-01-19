@@ -20,7 +20,7 @@
 		"$mod" = "$SUPER";
 		"$terminal" = "kitty";
 		"$fileManager" = "thunar";
-		"$browser" = "firefox";
+		"$browser" = "zen";
 
 		exec-once = [
 			"noctalia-shell"
@@ -145,6 +145,7 @@
 		# Allow on lock screen
 		bindl = [
 			", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
+			", switch:Lid Switch, exec, systemctl suspend"
 		];
 
 		# Allow on lock screen and repeat
