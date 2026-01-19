@@ -2,6 +2,8 @@
 {
     imports = [
         ./swappy.nix
+        ./hypridle.nix
+        ./hyprlock.nix
     ];
 
     home.packages = with pkgs; [
@@ -135,6 +137,9 @@
 			# Screenshots with swappy
 			", Print, exec, grim -g \"$(slurp)\" - | swappy -f - ; noctalia-shell ipc call toast send '{\"title\": \"Screenshot\", \"body\": \"Region captured\", \"icon\": \"camera\", \"duration\": 1000}'"
 			"SHIFT, Print, exec, grim - | swappy -f - ; noctalia-shell ipc call toast send '{\"title\": \"Screenshot\", \"body\": \"Screen captured\", \"icon\": \"camera\", \"duration\": 1000}'"
+
+			# Lock screen
+			"CTRL SHIFT $mod, L, exec, loginctl lock-session"
 		];
 
 		# Allow on lock screen

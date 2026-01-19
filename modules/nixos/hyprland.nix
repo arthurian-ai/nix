@@ -27,9 +27,6 @@
     #     nvidia.modesetting.enable = true;
     # };
 
-  # programs.hyprlock.enable = true;
-  # services.hypridle.enable = true;
-
     environment.systemPackages = with pkgs; [
         # waybar
         # dunst

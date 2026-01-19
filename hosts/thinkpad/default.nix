@@ -30,6 +30,13 @@
     services.tuned.enable = true;
     services.upower.enable = true;
 
+    # Lid close behavior
+    services.logind = {
+      lidSwitch = "suspend";
+      lidSwitchExternalPower = "suspend";
+      lidSwitchDocked = "ignore";
+    };
+
    home-manager = {
         extraSpecialArgs = { inherit inputs hostConfig; };
         users.${hostConfig.username} = import ../../home/laptop;
