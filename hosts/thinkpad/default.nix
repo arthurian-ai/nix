@@ -21,6 +21,10 @@
 	../../modules/nixos/regreet.nix
     ];
 
+  environment.sessionVariables = {
+	  NIXOS_OZONE_WL = "1";
+  };
+
     # For noctalia shell
     hardware.bluetooth.enable = true;
     services.tuned.enable = true;

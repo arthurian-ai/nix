@@ -21,7 +21,6 @@
         stylix = {
             url = "github:nix-community/stylix";
             inputs.nixpkgs.follows = "nixpkgs";
-            inputs.home-manager.follows = "home-manager";
         };
 	noctalia = {
 		url = "github:noctalia-dev/noctalia-shell";

@@ -26,7 +26,7 @@
             name = "Noto Color Emoji";
         };
         sizes = {
-            terminal = 12;
+            terminal = 13;
             applications = 11;
             desktop = 11;
         };
@@ -36,7 +36,7 @@
     stylix.cursor = {
         name = "Nordzy";
         package = pkgs.nordzy-cursor-theme;
-        size = 24;
+        size = 32;
     };
 
     # Cursor environment variables for Wayland compatibility

@@ -25,14 +25,26 @@
 		];
 
 		input = {
+			follow_mouse = 1;
+    			sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+
+			repeat_rate = 50;
+			repeat_delay = 300;
+
 			touchpad = {
 				natural_scroll = true;
 				clickfinger_behavior = true;
 			};
 		};
 
+		device = {
+			name = "tpps/2-elan-trackpoint";
+			accel_profile = "flat";
+			sensitivity = 0;
+		};
+
 		monitor = [
-			"eDP-1, 2880x1800@120, auto, 2"
+			"eDP-1, 2880x1800@120, auto, 1.8"
 		];
 
 		general = {
@@ -89,6 +101,7 @@
 			"$mod, D, workspace, 14"
 			"$mod, C, workspace, 15"
 			"$mod, S, workspace, 15"
+			"$mod, O, workspace, 16"
 
 			"$mod SHIFT, 1, movetoworkspace, 1"
 			"$mod SHIFT, 2, movetoworkspace, 2"
@@ -106,6 +119,7 @@
 			"$mod SHIFT, D, movetoworkspace, 14"
 			"$mod SHIFT, C, movetoworkspace, 15"
 			"$mod SHIFT, S, movetoworkspace, 15"
+			"$mod SHIFT, O, movetoworkspace, 16"
 
 			"$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
 			# "$mod, S, exec, noctalia-shell ipc call controlCenter toggle"
