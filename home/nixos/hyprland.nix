@@ -85,6 +85,12 @@
 			enabled = false;
 		};
 
+		dwindle = {
+			pseudotile = true;
+			preserve_split = true;
+			force_split = 2;  # always split to the right/bottom
+		};
+
 		bind = [
 			"$mod, Return, exec, $terminal"
 			# "$mod, B, exec, $browser"
@@ -128,10 +134,27 @@
 			"$mod SHIFT, O, movetoworkspace, 16"
 			"$mod SHIFT, V, movetoworkspace, 17"
 
+			# Focus movement (vim keys + arrows)
+			"$mod, h, movefocus, l"
+			"$mod, j, movefocus, d"
+			"$mod, k, movefocus, u"
+			"$mod, l, movefocus, r"
 			"$mod, left, movefocus, l"
 			"$mod, right, movefocus, r"
 			"$mod, up, movefocus, u"
 			"$mod, down, movefocus, d"
+
+			# Move windows (vim keys)
+			"$mod SHIFT, h, movewindow, l"
+			"$mod SHIFT, j, movewindow, d"
+			"$mod SHIFT, k, movewindow, u"
+			"$mod SHIFT, l, movewindow, r"
+
+			# Window management
+			"$mod, F, fullscreen, 0"
+			"$mod SHIFT, F, togglefloating,"
+			"$mod, E, togglesplit,"
+			"$mod, P, pseudo,"
 
 			"$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
 			# "$mod, S, exec, noctalia-shell ipc call controlCenter toggle"
@@ -151,6 +174,14 @@
 		bindl = [
 			", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
 			", switch:Lid Switch, exec, systemctl suspend"
+		];
+
+		# Resize windows (repeatable)
+		binde = [
+			"$mod CTRL, h, resizeactive, -30 0"
+			"$mod CTRL, j, resizeactive, 0 30"
+			"$mod CTRL, k, resizeactive, 0 -30"
+			"$mod CTRL, l, resizeactive, 30 0"
 		];
 
 		# Allow on lock screen and repeat
