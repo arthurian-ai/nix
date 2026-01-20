@@ -28,6 +28,12 @@
       enableThinkpadMeta = true;
     };
 
+    # Stylix theme for ThinkPad
+    custom.stylix = {
+      enable = true;
+      theme = "nord";
+    };
+
     # For noctalia shell
     hardware.bluetooth.enable = true;
     services.tuned.enable = true;

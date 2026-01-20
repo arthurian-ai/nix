@@ -26,6 +26,12 @@
       disableSuperKey = true;
     };
 
+    # Stylix theme for VM
+    custom.stylix = {
+      enable = true;
+      theme = "gruvbox";
+    };
+
    home-manager = {
         extraSpecialArgs = { inherit inputs hostConfig; };
         users.${hostConfig.username} = import ../../home/vm;  # VM-specific home config
