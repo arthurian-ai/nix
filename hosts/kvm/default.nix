@@ -15,11 +15,23 @@
 	../../modules/nixos/i3.nix  # Use i3 instead of sway (X11 works better in Parallels)
 	# ../../modules/nixos/sway.nix
 	# ../../modules/nixos/hyprland.nix
-	# ../../modules/nixos/keyd.nix
+	../../modules/nixos/keyd.nix
 	../../modules/nixos/fonts.nix
 	../../modules/nixos/stylix.nix
 	../../modules/nixos/thunar.nix
     ];
+
+    # Keyd configuration for KVM - disable super key
+    custom.keyd = {
+      enable = true;
+      disableSuperKey = true;
+    };
+
+    # Stylix theme for KVM
+    custom.stylix = {
+      enable = true;
+      theme = "gruvbox";
+    };
 
    home-manager = {
         extraSpecialArgs = { inherit inputs hostConfig; };
