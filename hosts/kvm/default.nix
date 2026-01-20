@@ -11,7 +11,7 @@
         inputs.home-manager.nixosModules.home-manager
 	inputs.stylix.nixosModules.stylix
 	../../modules/nixos/packages.nix
-	# ../../modules/nixos/security-packages.nix
+	../../modules/nixos/security-packages.nix
 	../../modules/nixos/i3.nix  # Use i3 instead of sway (X11 works better in Parallels)
 	# ../../modules/nixos/sway.nix
 	# ../../modules/nixos/hyprland.nix

@@ -11,6 +11,7 @@
         ../shared/git.nix
         # ../shared/ghostty.nix
         ../shared/tmux.nix
+        ../shared/neovim.nix
         # ../shared/java.nix
         ../nixos/i3.nix
         # ../nixos/sway.nix

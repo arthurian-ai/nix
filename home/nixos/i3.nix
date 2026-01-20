@@ -122,6 +122,8 @@ in
       # Startup applications
       startup = [
         { command = "xrandr --output Virtual-1 --mode 2880x1800 --dpi 192"; notification = false; }
+	{ command = "feh --bg-fill ../../wallpapers/gruvbox-1.jpg"; notification = false; }
+	{ command = "xset r rate 300 50"; notification = false; }
         { command = "spice-vdagent"; notification = false; }
         { command = "nm-applet"; notification = false; }
         { command = "dunst"; notification = false; }
