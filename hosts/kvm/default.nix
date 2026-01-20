@@ -21,10 +21,10 @@
 	../../modules/nixos/thunar.nix
     ];
 
-    # Keyd configuration for KVM - disable super key
+    # Keyd configuration for KVM - remap super to Ctrl+Alt+Shift+Super
     custom.keyd = {
       enable = true;
-      disableSuperKey = true;
+      remapSuperKey = true;
     };
 
     # Stylix theme for KVM
