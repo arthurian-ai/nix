@@ -7,10 +7,10 @@ in
   options.custom.keyd = {
     enable = lib.mkEnableOption "keyd key remapping";
 
-    disableSuperKey = lib.mkOption {
+    remapSuperKey = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Disable the super/meta key (useful for VMs where host captures it)";
+      description = "Remap super to Ctrl+Alt+Shift+Super (useful for VMs where host captures super)";
     };
 
     enableThinkpadMeta = lib.mkOption {
@@ -43,10 +43,10 @@ in
               "leftshift+leftmeta+f23" = "layer(meta)";
             })
 
-            # Disable super key for VMs
-            (lib.mkIf cfg.disableSuperKey {
-              leftmeta = "noop";
-              rightmeta = "noop";
+            # Remap super to Ctrl+Alt+Shift+Super for VMs
+            (lib.mkIf cfg.remapSuperKey {
+              leftmeta = "C-A-S-leftmeta";
+              rightmeta = "C-A-S-rightmeta";
             })
           ];
         };
