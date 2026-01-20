@@ -24,6 +24,8 @@
 
 		exec-once = [
 			"noctalia-shell"
+			"wl-paste --type text --watch cliphist store"
+			"wl-paste --type image --watch cliphist store"
 		];
 
 		input = {
@@ -46,7 +48,8 @@
 		};
 
 		monitor = [
-			"eDP-1, 2880x1800@120, auto, 1.8"
+			# "eDP-1, 2880x1800@120, auto, 1.8"
+			"eDP-1, 2880x1800@120, auto, 2"
 		];
 
 		general = {
@@ -104,6 +107,7 @@
 			"$mod, C, workspace, 15"
 			"$mod, S, workspace, 15"
 			"$mod, O, workspace, 16"
+			"$mod, V, workspace, 17"
 
 			"$mod SHIFT, 1, movetoworkspace, 1"
 			"$mod SHIFT, 2, movetoworkspace, 2"
@@ -122,6 +126,7 @@
 			"$mod SHIFT, C, movetoworkspace, 15"
 			"$mod SHIFT, S, movetoworkspace, 15"
 			"$mod SHIFT, O, movetoworkspace, 16"
+			"$mod SHIFT, V, movetoworkspace, 17"
 
 			"$mod, left, movefocus, l"
 			"$mod, right, movefocus, r"

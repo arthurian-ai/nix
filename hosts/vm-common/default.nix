@@ -20,6 +20,12 @@
 	../../modules/nixos/stylix.nix
     ];
 
+    # Keyd configuration for VM - disable super key
+    custom.keyd = {
+      enable = true;
+      disableSuperKey = true;
+    };
+
    home-manager = {
         extraSpecialArgs = { inherit inputs hostConfig; };
         users.${hostConfig.username} = import ../../home/vm;  # VM-specific home config

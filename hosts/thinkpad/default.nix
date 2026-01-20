@@ -22,6 +22,12 @@
 	../../modules/nixos/virtualization.nix
     ];
 
+    # Keyd configuration for ThinkPad
+    custom.keyd = {
+      enable = true;
+      enableThinkpadMeta = true;
+    };
+
     # For noctalia shell
     hardware.bluetooth.enable = true;
     services.tuned.enable = true;
