@@ -12,7 +12,7 @@
       modifier = "Mod1";
 
       # Terminal
-      terminal = "alacritty";
+      terminal = "kitty";
 
       # Application launcher - rofi
       menu = "rofi -show drun";
@@ -72,10 +72,10 @@
 
       # Output configuration for VM
       output = {
-        "Virtual-1" = {
-          mode = "3456x2168@60Hz";
-          scale = "2";
-        };
+        # "Virtual-1" = {
+        #   mode = "3456x2168@60Hz";
+        #   scale = "2";
+        # };
         # Wallpaper handled by Stylix
       };
 
@@ -114,10 +114,10 @@
 
   # Required packages for sway session
   home.packages = with pkgs; [
-    wl-clipboard
-    grim
-    slurp
-    cliphist
-    networkmanagerapplet
+    # wl-clipboard
+    # grim
+    # slurp
+    # cliphist
+    # networkmanagerapplet
   ];
 }

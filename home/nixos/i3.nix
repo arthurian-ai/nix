@@ -4,6 +4,18 @@ let
   mod = "Mod1";  # Alt key
 in
 {
+
+	home.sessionVariables = {
+		GDK_SCALE = "2";
+		GDK_DPI_SCALE = "0.5";
+		QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+	};
+
+	xresources.properties = {
+		"Xft.dpi" = 192;
+	};
+
+
   xsession.windowManager.i3 = {
     enable = true;
 
@@ -109,6 +121,8 @@ in
 
       # Startup applications
       startup = [
+        { command = "xrandr --output Virtual-1 --mode 2880x1800 --dpi 192"; notification = false; }
+        { command = "spice-vdagent"; notification = false; }
         { command = "nm-applet"; notification = false; }
         { command = "dunst"; notification = false; }
         # Compositor for smooth rendering
@@ -119,7 +133,7 @@ in
 
   # i3status config
   programs.i3status = {
-    enable = true;
+    enable = false;
     general = {
       colors = true;
       interval = 5;

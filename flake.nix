@@ -43,7 +43,7 @@
             # Per-host settings
             vmConfig = commonConfig // {
                 username = "citrus";
-                hostname = "nixos-vm";
+                hostname = "nixos";
             };
 
             thinkpadConfig = commonConfig // {
@@ -71,6 +71,11 @@
                 utm-vm = nixpkgs.lib.nixosSystem {
                     system = "aarch64-linux";
                     modules = [ ./hosts/utm-vm ];
+                    specialArgs = { inherit self inputs; hostConfig = vmConfig; };
+                };
+                kvm = nixpkgs.lib.nixosSystem {
+                    system = "x86_64-linux";
+                    modules = [ ./hosts/kvm ];
                     specialArgs = { inherit self inputs; hostConfig = vmConfig; };
                 };
                 desktop = nixpkgs.lib.nixosSystem {
