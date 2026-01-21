@@ -7,6 +7,7 @@
         		name = "Curtis Mitchell";
         		email = "70792951+curtisjm@users.noreply.github.com";
 		};
+		pull.rebase = false;
 	};
     };
 }
