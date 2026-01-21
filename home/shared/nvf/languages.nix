@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nvf.settings.vim = {
     # Enable LSP
     lsp = {
@@ -9,11 +8,12 @@
       lightbulb.enable = true;
     };
 
-    # Enable treesitter
+    # Treesitter - grammars are automatically enabled per language
     treesitter = {
       enable = true;
       highlight.enable = true;
       indent.enable = true;
+      context.enable = false;
     };
 
     # Language support - nvf handles LSP, treesitter, formatting automatically
@@ -21,6 +21,7 @@
       enableLSP = true;
       enableFormat = true;
       enableTreesitter = true;
+      enableExtraDiagnostics = true;
 
       nix.enable = true;
       python.enable = true;

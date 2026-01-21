@@ -21,7 +21,7 @@
     # Visuals
     visuals = {
       nvim-web-devicons.enable = true;
-      indent-blankline.enable = true;
+      indent-blankline.enable = false;
       nvim-cursorline.enable = true;
       fidget-nvim.enable = true;
     };

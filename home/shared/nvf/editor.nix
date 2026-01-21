@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   programs.nvf.settings.vim = {
     # Fuzzy finder
     telescope.enable = true;
@@ -40,8 +39,8 @@
 
     # Mini plugins (like LazyVim uses)
     mini = {
-      ai.enable = true;        # Better text objects
-      surround.enable = true;  # Surround actions
+      ai.enable = true; # Better text objects
+      surround.enable = true; # Surround actions
     };
   };
 }
