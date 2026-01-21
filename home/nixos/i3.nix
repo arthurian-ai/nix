@@ -15,10 +15,11 @@ in {
   home.sessionVariables = {
     GDK_SCALE = "2";
     GDK_DPI_SCALE = "0.5";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "0"; # Disable auto-detect
-    QT_SCALE_FACTOR = "2"; # Explicit 2x for Qt
-    QT_FONT_DPI = "96"; # Prevent double-scaling text
-    ELECTRON_OZONE_PLATFORM_HINT = "x11"; # Keep Electron on X11
+    QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+    QT_SCALE_FACTOR = "2";
+    QT_FONT_DPI = "96";
+    ELECTRON_OZONE_PLATFORM_HINT = "x11";
+    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
   };
 
   xresources.properties = {
@@ -31,13 +32,13 @@ in {
     config = {
       modifier = mod;
       terminal = "kitty";
-      menu = "rofi -show drun";
+      menu = "rofi -dpi 192 -show drun";
 
       # Keybindings
       keybindings = lib.mkOptionDefault {
         # Applications
         "${mod}+Return" = "exec kitty";
-        "${mod}+space" = "exec rofi -show drun";
+        "${mod}+space" = "exec rofi -dpi 192 -show drun";
         "${mod}+q" = "kill";
 
         # Focus (vim keys)

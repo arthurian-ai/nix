@@ -3,6 +3,7 @@
   # Enable X11 and i3
   services.xserver = {
     enable = true;
+    dpi = 192;
     windowManager.i3.enable = true;
     videoDrivers = [ "virtio" ];
   };
