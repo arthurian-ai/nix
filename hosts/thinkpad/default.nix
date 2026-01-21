@@ -160,7 +160,7 @@
   #  wget
 	git
 	tmux
-	neovim
+	# neovim - provided by nvf in home-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

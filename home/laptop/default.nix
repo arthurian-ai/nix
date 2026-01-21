@@ -2,14 +2,14 @@
 {
     imports = [
         ../shared/zsh.nix
-        # ../shared/starship.nix
+        ../shared/starship.nix
         ../shared/zoxide.nix
         ../shared/atuin.nix
         ../shared/bat.nix
         ../shared/eza.nix
         ../shared/fzf.nix
         ../shared/git.nix
-        ../shared/neovim.nix
+        ../shared/nvf
         # ../shared/ghostty.nix
         ../shared/tmux.nix
         # ../shared/java.nix
