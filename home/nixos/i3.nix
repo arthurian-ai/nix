@@ -137,7 +137,7 @@ in {
           notification = false;
         }
         {
-          command = "feh --bg-fill ../../wallpapers/gruvbox-1.jpg";
+          command = "GDK_SCALE=1 feh --bg-fill ../../wallpapers/gruvbox-1.jpg";
           notification = false;
         }
         {
