@@ -1,4 +1,7 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
+let
+	opacity = lib.mkForce 0.85;
+in
 {
 	imports = [
 		inputs.noctalia.homeModules.default
@@ -9,13 +12,13 @@
 		settings = {
 			# settingsVersion = 0;
 			bar = {
-				position = "bottom";
+				position = "right";
 			# 	monitors = [ ];
 			# 	density = "default";
 			# 	showOutline = false;
 			# 	showCapsule = true;
 			# 	capsuleOpacity = 1;
-			# 	backgroundOpacity = 0.93;
+				backgroundOpacity = opacity;
 			# 	useSeparateOpacity = false;
 				floating = true;
 			# 	marginVertical = 4;
@@ -23,57 +26,57 @@
 			# 	outerCorners = true;
 			# 	exclusive = true;
 			# 	hideOnOverview = false;
-			# 	widgets = {
-			# 		left = [
-			# 		{
-			# 			id = "Launcher";
-			# 		}
-			# 		{
-			# 			id = "Clock";
-			# 		}
-			# 		{
-			# 			id = "SystemMonitor";
-			# 		}
-			# 		{
-			# 			id = "ActiveWindow";
-			# 		}
-			# 		{
-			# 			id = "MediaMini";
-			# 		}
-			# 		];
-			# 		center = [
-			# 		{
-			# 			id = "Workspace";
-			# 		}
-			# 		];
-			# 		right = [
-			# 		{
-			# 			id = "Tray";
-			# 		}
-			# 		{
-			# 			id = "NotificationHistory";
-			# 		}
-			# 		{
-			# 			id = "Battery";
-			# 		}
-			# 		{
-			# 			id = "Volume";
-			# 		}
-			# 		{
-			# 			id = "Brightness";
-			# 		}
-			# 		{
-			# 			id = "ControlCenter";
-			# 		}
-			# 		];
-			# 	};
+				widgets = {
+					left = [
+					# {
+					# 	id = "Launcher";
+					# }
+					{
+						id = "ControlCenter";
+					}
+					{
+						id = "Clock";
+					}
+					{
+						id = "NotificationHistory";
+					}
+					# {
+					# 	id = "ActiveWindow";
+					# }
+					{
+						id = "MediaMini";
+					}
+					];
+					center = [
+					{
+						id = "Workspace";
+					}
+					];
+					right = [
+					{
+						id = "Tray";
+					}
+					{
+						id = "Battery";
+					}
+					{
+						id = "Volume";
+					}
+					{
+						id = "Brightness";
+					}
+					{
+						id = "SystemMonitor";
+					}
+					];
+				};
 			};
 			general = {
 			# 	avatarImage = "";
 			# 	dimmerOpacity = 0.2;
 			# 	showScreenCorners = false;
 			# 	forceBlackScreenCorners = false;
-				scaleRatio = 0.8;
+				scaleRatio = 0.85;
 			# 	radiusRatio = 1;
 			# 	iRadiusRatio = 1;
 			# 	boxRadiusRatio = 1;
@@ -99,7 +102,7 @@
 			# 	fontDefaultScale = 1;
 			# 	fontFixedScale = 1;
 			# 	tooltipsEnabled = true;
-			# 	panelBackgroundOpacity = 0.93;
+				panelBackgroundOpacity = opacity;
 			# 	panelsAttachedToBar = true;
 			# 	settingsPanelMode = "attached";
 			# 	wifiDetailsViewMode = "grid";
@@ -171,7 +174,7 @@
 			# 	wallhavenResolutionHeight = "";
 			};
 			appLauncher = {
-			# 	enableClipboardHistory = false;
+				enableClipboardHistory = true;
 			# 	autoPasteClipboard = false;
 			# 	enableClipPreview = true;
 			# 	clipboardWrapText = true;
@@ -272,9 +275,9 @@
 			};
 			dock = {
 			# 	enabled = true;
-				position = "left";
+				# position = "left";
 			# 	displayMode = "auto_hide";
-			# 	backgroundOpacity = 1;
+				backgroundOpacity = opacity;
 			# 	floatingRatio = 1;
 			# 	size = 1;
 			# 	onlySameOutput = true;
@@ -334,7 +337,7 @@
 			# 	monitors = [ ];
 			# 	location = "top_right";
 			# 	overlayLayer = true;
-			# 	backgroundOpacity = 1;
+				backgroundOpacity = opacity;
 			# 	respectExpireTimeout = false;
 			# 	lowUrgencyDuration = 3;
 			# 	normalUrgencyDuration = 8;
@@ -361,7 +364,7 @@
 			# 	location = "top_right";
 			# 	autoHideMs = 2000;
 			# 	overlayLayer = true;
-			# 	backgroundOpacity = 1;
+				backgroundOpacity = opacity;
 			# 	enabledTypes = [
 			# 		0
 			# 			1

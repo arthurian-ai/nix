@@ -44,7 +44,7 @@
 		device = {
 			name = "tpps/2-elan-trackpoint";
 			accel_profile = "flat";
-			sensitivity = 0;
+			sensitivity = 0.1;
 		};
 
 		monitor = [
@@ -62,24 +62,43 @@
 			rounding = 20;
 			rounding_power = 2;
 
-			active_opacity = 0.9;
-			inactive_opacity = 0.9;
+			active_opacity = 0.85;
+			inactive_opacity = 0.85;
 			fullscreen_opacity = 1.0;
 
 			shadow = {
 				enabled = true;
-				range = 4;
-				render_power = 3;
-				color = lib.mkDefault "rgba(1a1a1aee)";
+				range = 20;
+				render_power = 2;
+				offset = "0 5";
+				color = lib.mkDefault "rgba(00000055)";
 			};
 
 			blur = {
 				enabled = true;
-				size = 3;
-				passes = 2;
-				vibrancy = 0.1696;
+				size = 6;
+				passes = 3;
+				noise = 0.02;
+				contrast = 0.9;
+				brightness = 1.0;
+				vibrancy = 0.2;
+				new_optimizations = true;
+				popups = true;
 			};
 		};
+
+		# Layer rules for noctalia shell blur
+		layerrule = [
+			"blur on, match:namespace r:^noctalia.*$"
+		];
+
+		# Make certain windows fully opaque
+		windowrulev2 = [
+			"opacity 1.0 override, class:^(firefox)$"
+			"opacity 1.0 override, class:^(zen)$"
+			"opacity 1.0 override, class:^(mpv)$"
+			"opacity 1.0 override, fullscreen:1"
+		];
 
 		animations = {
 			enabled = false;
@@ -194,7 +213,7 @@
 
 	};
 
-	extraConfig = ''
+    	extraConfig = ''
 		layerrule {
 			name = noctalia
 			match:namespace = noctalia-background-.*$

@@ -11,6 +11,7 @@
             ls = "eza";
             grep = "rg";
             fzf = ''fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'';
+            clear = "command clear && fastfetch";
         };
 
         initContent = ''
@@ -20,6 +21,7 @@
               z "$@"
               eza -l
             }
+            fastfetch
         '';
     };
 }

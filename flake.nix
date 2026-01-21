@@ -30,9 +30,13 @@
 		url = "github:youwen5/zen-browser-flake";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
+	nvf = {
+		url = "github:notashelf/nvf";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
     };
 
-    outputs = inputs@{self, nixpkgs, nix-darwin, nix-homebrew, home-manager, hyprland, hyprland-plugins, stylix, nixos-hardware, noctalia, zen-browser}:
+    outputs = inputs@{self, nixpkgs, nix-darwin, nix-homebrew, home-manager, hyprland, hyprland-plugins, stylix, nixos-hardware, noctalia, zen-browser, nvf}:
         let
             # Common settings
             commonConfig = {
