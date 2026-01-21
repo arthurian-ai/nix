@@ -1,14 +1,16 @@
-{ config, pkgs, lib, ... }:
-
-let
-  cfg = config.custom.stylix;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.custom.stylix;
+in {
   options.custom.stylix = {
     enable = lib.mkEnableOption "stylix theming";
 
     theme = lib.mkOption {
-      type = lib.types.enum [ "nord" "gruvbox" ];
+      type = lib.types.enum ["nord" "gruvbox"];
       default = "nord";
       description = "Color scheme theme to use";
     };
