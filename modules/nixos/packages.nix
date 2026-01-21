@@ -35,7 +35,6 @@
     keyd
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     protonvpn-gui
-    # obsidian
     fastfetch
   ];
 }
