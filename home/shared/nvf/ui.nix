@@ -1,8 +1,8 @@
-{ ... }:
-{
+{lib, ...}: {
   programs.nvf.settings.vim = {
-    # Statusline (lualine) - let Stylix set the theme
+    # Statusline (lualine)
     statusline.lualine.enable = true;
+    statusline.lualine.theme = lib.mkForce "auto";
 
     # No bufferline/tabline (user disabled this in LazyVim)
     tabline.nvimBufferline.enable = false;
@@ -25,5 +25,7 @@
       nvim-cursorline.enable = true;
       fidget-nvim.enable = true;
     };
+    theme.name = lib.mkForce "rose-pine";
+    theme.style = lib.mkForce "main";
   };
 }

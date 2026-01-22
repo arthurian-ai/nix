@@ -4,7 +4,6 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    neovim
     ripgrep
     fd
     go
@@ -16,25 +15,21 @@
     docker
     docker-compose
     colima
-    stow
-    uv
-    vscode
     bat
     tldr
     btop
     rust-analyzer
     yt-dlp
     cmake
-    # google-chrome
     gcc
-    # kitty
-    # claude
     claude-code
-    # ghostty
-    # alacritty
+    opencode
     keyd
+    fastfetch
+
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     protonvpn-gui
-    fastfetch
+    darktable
+    ticktick
   ];
 }
