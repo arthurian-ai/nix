@@ -14,6 +14,7 @@
     ../shared/git.nix
     ../shared/nvf
     ../shared/tmux.nix
+    ../shared/opencode.nix
     ../nixos/hyprland.nix
     ../nixos/kitty.nix
     ../nixos/noctalia.nix

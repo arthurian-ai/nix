@@ -1,7 +1,10 @@
-{ pkgs, ... }:
-{
-    fonts.packages = [
-        pkgs.nerd-fonts.jetbrains-mono
-        pkgs.font-awesome
-    ];
+{pkgs, ...}: {
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+    font-awesome
+    source-sans-pro
+    source-code-pro
+    iosevka
+  ];
 }

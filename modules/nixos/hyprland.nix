@@ -52,6 +52,9 @@
 
     security.polkit.enable = true;
 
+    # PAM service for hyprlock (enables fingerprint auth)
+    security.pam.services.hyprlock = {};
+
     # xdg.portal = {
     #         enable = true;
     #         # extraProtals = [ pkgs.xdg-desktop-portal-hyprland ];

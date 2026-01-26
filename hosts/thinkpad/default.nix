@@ -23,6 +23,7 @@
     ../../modules/nixos/thunar.nix
     ../../modules/nixos/regreet.nix
     ../../modules/nixos/virtualization.nix
+    ../../modules/shared/emacs.nix
   ];
 
   # Keyd configuration for ThinkPad

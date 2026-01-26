@@ -48,7 +48,7 @@
       device = {
         name = "tpps/2-elan-trackpoint";
         accel_profile = "flat";
-        sensitivity = 0.1;
+        sensitivity = 0;
       };
 
       monitor = [
