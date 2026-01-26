@@ -1,53 +1,58 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, inputs, hostConfig, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-        inputs.home-manager.nixosModules.home-manager
-	inputs.stylix.nixosModules.stylix
-	../../modules/nixos/packages.nix
-	../../modules/nixos/security-packages.nix
-	../../modules/nixos/i3.nix  # Use i3 instead of sway (X11 works better in Parallels)
-	# ../../modules/nixos/sway.nix
-	# ../../modules/nixos/hyprland.nix
-	../../modules/nixos/keyd.nix
-	../../modules/nixos/fonts.nix
-	../../modules/nixos/stylix.nix
-	../../modules/nixos/thunar.nix
-    ];
+  config,
+  pkgs,
+  inputs,
+  hostConfig,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
+    inputs.stylix.nixosModules.stylix
+    ../../modules/nixos/packages.nix
+    ../../modules/nixos/security-packages.nix
+    ../../modules/nixos/i3.nix # Use i3 instead of sway (X11 works better in Parallels)
+    # ../../modules/nixos/sway.nix
+    # ../../modules/nixos/hyprland.nix
+    ../../modules/nixos/keyd.nix
+    ../../modules/nixos/fonts.nix
+    ../../modules/nixos/stylix.nix
+    ../../modules/nixos/thunar.nix
+  ];
 
-    # Keyd configuration for KVM - remap super to Ctrl+Alt+Shift+Super
-    custom.keyd = {
-      enable = true;
-      remapSuperKey = true;
-    };
+  environment.etc.hosts.mode = "0644";
 
-    # Stylix theme for KVM
-    custom.stylix = {
-      enable = true;
-      theme = "gruvbox";
-    };
+  # Keyd configuration for KVM - remap super to Ctrl+Alt+Shift+Super
+  custom.keyd = {
+    enable = true;
+    remapSuperKey = true;
+  };
 
-   home-manager = {
-        extraSpecialArgs = { inherit inputs hostConfig; };
-        users.${hostConfig.username} = import ../../home/vm;  # VM-specific home config
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        backupFileExtension = "backup";
-    };
+  # Stylix theme for KVM
+  custom.stylix = {
+    enable = true;
+    theme = "gruvbox";
+  };
 
-	nix.settings.experimental-features = "nix-command flakes";
+  home-manager = {
+    extraSpecialArgs = {inherit inputs hostConfig;};
+    users.${hostConfig.username} = import ../../home/vm; # VM-specific home config
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+  };
 
-	services.spice-vdagentd.enable = true;
-	services.qemuGuest.enable = true;
+  nix.settings.experimental-features = "nix-command flakes";
 
-	users.defaultUserShell = pkgs.zsh;
-	programs.zsh.enable = true;
+  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
+
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -121,9 +126,9 @@
   users.users.citrus = {
     isNormalUser = true;
     description = "citrus";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -136,12 +141,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-	neovim
-	tmux
-	git
-	spice-vdagent
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    neovim
+    tmux
+    git
+    spice-vdagent
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -170,5 +175,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
