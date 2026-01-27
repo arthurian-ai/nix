@@ -10,7 +10,6 @@
     redis
     freerdp
     gobuster
-    dnsutils
     dnsenum
     onesixtyone
     net-snmp

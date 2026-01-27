@@ -22,6 +22,7 @@
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/stylix.nix
     ../../modules/nixos/thunar.nix
+    ../../overlays
   ];
 
   environment.etc.hosts.mode = "0644";
