@@ -15,5 +15,6 @@
     net-snmp
     openssl
     mariadb
+    nfs-utils
   ];
 }
