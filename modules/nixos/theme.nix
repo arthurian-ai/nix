@@ -9,7 +9,7 @@ in {
     enable = lib.mkEnableOption "custom theming";
 
     colorScheme = lib.mkOption {
-      type = lib.types.enum ["nord" "gruvbox" "tokyonight" "rose-pine" "ayu" "kanagawa"];
+      type = lib.types.enum ["nord" "gruvbox" "tokyonight" "rose-pine" "ayu" "kanagawa" "gruvbox"];
       default = "nord";
       description = "Color scheme to use";
     };

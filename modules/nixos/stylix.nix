@@ -15,7 +15,7 @@ in {
     # Theme-specific settings
     stylix.image = lib.mkMerge [
       (lib.mkIf (cfg.colorScheme == "nord") ../../wallpapers/nord-2.png)
-      (lib.mkIf (cfg.colorScheme == "gruvbox") ../../wallpapers/gruvbox-1.jpg)
+      (lib.mkIf (cfg.colorScheme == "gruvbox") ../../wallpapers/gruvbox-3.png)
       (lib.mkIf (cfg.colorScheme == "tokyonight") ../../wallpapers/tokyonight-1.jpeg)
       (lib.mkIf (cfg.colorScheme == "rose-pine") ../../wallpapers/rose-pine-2.jpg)
       (lib.mkIf (cfg.colorScheme == "ayu") ../../wallpapers/ayu-5.jpg)

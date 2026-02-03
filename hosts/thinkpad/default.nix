@@ -14,6 +14,8 @@
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
     inputs.home-manager.nixosModules.home-manager
     inputs.stylix.nixosModules.stylix
+    inputs.agenix.nixosModules.default
+    ../../modules/nixos/networking.nix
     ../../modules/nixos/theme.nix
     ../../modules/nixos/stylix.nix
     ../../modules/nixos/noctalia.nix
@@ -36,7 +38,7 @@
   # Theme settings for ThinkPad
   custom.theme = {
     enable = true;
-    colorScheme = "nord";
+    colorScheme = "gruvbox";
     transparency = false;
   };
 

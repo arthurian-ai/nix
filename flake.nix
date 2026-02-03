@@ -34,6 +34,10 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -49,6 +53,7 @@
     noctalia,
     zen-browser,
     nvf,
+    agenix,
   }: let
     # Common settings
     commonConfig = {
