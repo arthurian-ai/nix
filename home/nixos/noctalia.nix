@@ -6,7 +6,11 @@
   ...
 }: let
   transparency = osConfig.custom.theme.transparency or false;
-  opacity = lib.mkForce (if transparency then 0.8 else 1.0);
+  opacity = lib.mkForce (
+    if transparency
+    then 0.8
+    else 1.0
+  );
   radius = lib.mkForce 0.3;
 in {
   imports = [
@@ -87,8 +91,8 @@ in {
         iRadiusRatio = radius;
         boxRadiusRatio = radius;
         screenRadiusRatio = radius;
-        animationSpeed = 2;
-        # 	animationDisabled = false;
+        # animationSpeed = 2;
+        animationDisabled = true;
         # 	compactLockScreen = false;
         # 	lockOnSuspend = true;
         # 	showSessionButtonsOnLockScreen = true;

@@ -36,7 +36,7 @@
   # Theme settings for ThinkPad
   custom.theme = {
     enable = true;
-    colorScheme = "kanagawa";
+    colorScheme = "nord";
     transparency = false;
   };
 
