@@ -26,6 +26,7 @@
     opencode
     keyd
     fastfetch
+    google-chrome
 
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     protonvpn-gui

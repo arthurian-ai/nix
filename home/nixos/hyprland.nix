@@ -1,8 +1,11 @@
 {
   pkgs,
   lib,
+  osConfig,
   ...
-}: {
+}: let
+  transparency = osConfig.custom.theme.transparency or false;
+in {
   imports = [
     ./swappy.nix
     ./hypridle.nix
@@ -48,7 +51,7 @@
       device = {
         name = "tpps/2-elan-trackpoint";
         accel_profile = "flat";
-        sensitivity = 0;
+        sensitivity = -0.2;
       };
 
       monitor = [
@@ -66,8 +69,8 @@
         rounding = 6;
         rounding_power = 3;
 
-        active_opacity = 0.8;
-        inactive_opacity = 0.8;
+        active_opacity = if transparency then 0.8 else 1.0;
+        inactive_opacity = if transparency then 0.8 else 1.0;
         fullscreen_opacity = 1.0;
 
         shadow = {
@@ -79,17 +82,7 @@
         };
 
         blur = {
-          # enabled = true;
-          # size = 6;
-          # passes = 3;
-          # noise = 0.02;
-          # contrast = 0.9;
-          # brightness = 1.0;
-          # vibrancy = 0.2;
-          # new_optimizations = true;
-          # popups = true;
-
-          enabled = true;
+          enabled = transparency;
           size = 15;
           passes = 3;
           noise = 0.08;

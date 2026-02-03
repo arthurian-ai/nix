@@ -14,6 +14,7 @@
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
     inputs.home-manager.nixosModules.home-manager
     inputs.stylix.nixosModules.stylix
+    ../../modules/nixos/theme.nix
     ../../modules/nixos/stylix.nix
     ../../modules/nixos/noctalia.nix
     ../../modules/nixos/packages.nix
@@ -32,10 +33,11 @@
     enableThinkpadMeta = true;
   };
 
-  # Stylix theme for ThinkPad
-  custom.stylix = {
+  # Theme settings for ThinkPad
+  custom.theme = {
     enable = true;
-    theme = "rose-pine";
+    colorScheme = "kanagawa";
+    transparency = false;
   };
 
   # For noctalia shell

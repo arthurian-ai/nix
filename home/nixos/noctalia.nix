@@ -2,9 +2,11 @@
   pkgs,
   inputs,
   lib,
+  osConfig,
   ...
 }: let
-  opacity = lib.mkForce 0.8;
+  transparency = osConfig.custom.theme.transparency or false;
+  opacity = lib.mkForce (if transparency then 0.8 else 1.0);
   radius = lib.mkForce 0.3;
 in {
   imports = [
