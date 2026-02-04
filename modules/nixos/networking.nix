@@ -3,15 +3,17 @@
   lib,
   ...
 }: {
+  age.identityPaths = ["/home/curtis/.ssh/id_ed25519"];
+
   age.secrets = {
     eduroam-identity.file = ../../secrets/eduroam-identity.age;
     eduroam-password.file = ../../secrets/eduroam-password.age;
   };
 
   networking.networkmanager.ensureProfiles = {
-    # Create identity secret (enter: EDUROAM_IDENTITY=curtismitchell@berkeley.edu)
+    # Create identity secret (enter: EDUROAM_IDENTITY={email})
     # agenix -e eduroam-identity.age
-    # Create password secret (enter: EDUROAM_PASSWORD=hash:4f3875ca7132ac8b51f82394465ee711)
+    # Create password secret (enter: EDUROAM_PASSWORD={password or hash:{hash}})
     # agenix -e eduroam-password.age
     environmentFiles = [
       config.age.secrets.eduroam-identity.path
