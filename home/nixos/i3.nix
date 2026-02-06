@@ -4,7 +4,8 @@
   lib,
   ...
 }: let
-  mod = "Mod1"; # Alt key
+  # mod = "Mod1"; # Alt key
+  mod = "Mod4"; # Super key
 in {
   # home.sessionVariables = {
   #   GDK_SCALE = "2";

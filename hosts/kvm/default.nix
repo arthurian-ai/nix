@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.stylix.nixosModules.stylix
+    ../../modules/nixos/theme.nix
     ../../modules/nixos/packages.nix
     ../../modules/nixos/security-packages.nix
     ../../modules/nixos/i3.nix # Use i3 instead of sway (X11 works better in Parallels)
@@ -34,9 +35,10 @@
   };
 
   # Stylix theme for KVM
-  custom.stylix = {
+  custom.theme = {
     enable = true;
-    theme = "gruvbox";
+    colorScheme = "gruvbox";
+    transparency = false;
   };
 
   home-manager = {
