@@ -69,8 +69,14 @@ in {
         rounding = 6;
         rounding_power = 3;
 
-        active_opacity = if transparency then 0.8 else 1.0;
-        inactive_opacity = if transparency then 0.8 else 1.0;
+        active_opacity =
+          if transparency
+          then 0.85
+          else 1.0;
+        inactive_opacity =
+          if transparency
+          then 0.85
+          else 1.0;
         fullscreen_opacity = 1.0;
 
         shadow = {
@@ -84,7 +90,7 @@ in {
         blur = {
           enabled = transparency;
           size = 15;
-          passes = 3;
+          passes = 4;
           noise = 0.08;
           contrast = 2;
           brightness = 1.0;

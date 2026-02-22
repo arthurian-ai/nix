@@ -32,5 +32,7 @@
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     protonvpn-gui
     darktable
+    zoom-us
+    slack
   ];
 }

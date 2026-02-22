@@ -126,6 +126,11 @@
   #   variant = "";
   # };
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk]; # or -wlr for wlroots compositors
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -151,7 +156,7 @@
   users.users.${hostConfig.username} = {
     isNormalUser = true;
     description = hostConfig.username;
-    extraGroups = ["networkmanager" "wheel" "libvirtd"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd" "video"];
     packages = with pkgs; [];
   };
 

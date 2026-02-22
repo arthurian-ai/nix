@@ -21,6 +21,7 @@
     ../nixos/zathura.nix
     ../nixos/obsidian.nix
     ../nixos/vesktop.nix
+    ../nixos/qutebrowser.nix
   ];
 
   home.username = hostConfig.username;
