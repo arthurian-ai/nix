@@ -7,7 +7,8 @@
   inputs,
   hostConfig,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -38,8 +39,8 @@
   # Theme settings for ThinkPad
   custom.theme = {
     enable = true;
-    colorScheme = "gruvbox";
-    transparency = false;
+    colorScheme = "tokyonight";
+    transparency = true;
   };
 
   # For noctalia shell
@@ -62,7 +63,7 @@
   # };
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs hostConfig;};
+    extraSpecialArgs = { inherit inputs hostConfig; };
     users.${hostConfig.username} = import ../../home/laptop;
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -72,9 +73,9 @@
   nix.settings = {
     experimental-features = "nix-command flakes";
 
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
   # Enable zsh and set as default shell
@@ -87,6 +88,10 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Disable Intel PSR (Panel Self Refresh) to fix screen stretching/corruption crashes.
+  # The xe driver's PSR implementation is buggy on this hardware.
+  # boot.kernelParams = [ "xe.enable_psr=0" ];
 
   networking.hostName = hostConfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -128,7 +133,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk]; # or -wlr for wlroots compositors
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # or -wlr for wlroots compositors
   };
 
   # Enable CUPS to print documents.
@@ -156,8 +161,13 @@
   users.users.${hostConfig.username} = {
     isNormalUser = true;
     description = hostConfig.username;
-    extraGroups = ["networkmanager" "wheel" "libvirtd" "video"];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+      "video"
+    ];
+    packages = with pkgs; [ ];
   };
 
   # Install firefox.

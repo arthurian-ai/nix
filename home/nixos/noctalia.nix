@@ -4,15 +4,13 @@
   lib,
   osConfig,
   ...
-}: let
+}:
+let
   transparency = osConfig.custom.theme.transparency or false;
-  opacity = lib.mkForce (
-    if transparency
-    then 0.8
-    else 1.0
-  );
+  opacity = lib.mkForce (if transparency then 0.75 else 1.0);
   radius = lib.mkForce 0.3;
-in {
+in
+{
   imports = [
     inputs.noctalia.homeModules.default
   ];

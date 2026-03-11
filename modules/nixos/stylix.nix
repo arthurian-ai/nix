@@ -16,7 +16,7 @@ in {
     stylix.image = lib.mkMerge [
       (lib.mkIf (cfg.colorScheme == "nord") ../../wallpapers/nord-2.png)
       (lib.mkIf (cfg.colorScheme == "gruvbox") ../../wallpapers/gruvbox-3.png)
-      (lib.mkIf (cfg.colorScheme == "tokyonight") ../../wallpapers/tokyonight-1.jpeg)
+      (lib.mkIf (cfg.colorScheme == "tokyonight") ../../wallpapers/tokyonight-2.png)
       (lib.mkIf (cfg.colorScheme == "rose-pine") ../../wallpapers/rose-pine-2.jpg)
       (lib.mkIf (cfg.colorScheme == "ayu") ../../wallpapers/ayu-5.jpg)
       (lib.mkIf (cfg.colorScheme == "kanagawa") ../../wallpapers/kanagawa-1.png)
@@ -24,8 +24,13 @@ in {
 
     stylix.base16Scheme = lib.mkMerge [
       (lib.mkIf (cfg.colorScheme == "nord") "${pkgs.base16-schemes}/share/themes/nord.yaml")
-      (lib.mkIf (cfg.colorScheme == "gruvbox") "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml")
-      (lib.mkIf (cfg.colorScheme == "tokyonight") "${pkgs.base16-schemes}/share/themes/tokyo-night-moon.yaml")
+      (lib.mkIf (
+        cfg.colorScheme == "gruvbox"
+      ) "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml")
+      (lib.mkIf (
+          cfg.colorScheme == "tokyonight"
+        )
+        ../../themes/tokyo-night-moon-bright.yaml)
       (lib.mkIf (cfg.colorScheme == "rose-pine") "${pkgs.base16-schemes}/share/themes/rose-pine.yaml")
       (lib.mkIf (cfg.colorScheme == "ayu") "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml")
       (lib.mkIf (cfg.colorScheme == "kanagawa") "${pkgs.base16-schemes}/share/themes/kanagawa.yaml")
@@ -39,6 +44,11 @@ in {
         size = 32;
       })
       (lib.mkIf (cfg.colorScheme == "gruvbox") {
+        name = "Adwaita";
+        package = pkgs.adwaita-icon-theme;
+        size = 24;
+      })
+      (lib.mkIf (cfg.colorScheme == "tokyonight") {
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
         size = 24;

@@ -9,6 +9,7 @@
     go
     python3
     ruff
+    pyright
     nil
     cargo
     rustc
@@ -28,6 +29,7 @@
     fastfetch
     google-chrome
     openssl
+    nodejs
 
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     protonvpn-gui

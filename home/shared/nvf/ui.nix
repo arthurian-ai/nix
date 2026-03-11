@@ -25,7 +25,7 @@
       nvim-cursorline.enable = true;
       fidget-nvim.enable = true;
     };
-    theme.name = lib.mkForce "gruvbox";
+    theme.name = lib.mkForce "tokyonight";
     theme.style = lib.mkForce "dark";
   };
 }

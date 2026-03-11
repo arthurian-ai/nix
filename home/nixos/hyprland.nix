@@ -106,11 +106,11 @@ in {
       ];
 
       # Make certain windows fully opaque
-      windowrulev2 = [
-        "opacity 1.0 override, class:^(firefox)$"
-        "opacity 1.0 override, class:^(zen)$"
-        "opacity 1.0 override, class:^(mpv)$"
-        "opacity 1.0 override, fullscreen:1"
+      windowrule = [
+        "opacity 1.0 override, match:class ^(firefox)$"
+        "opacity 1.0 override, match:class ^(zen)$"
+        "opacity 1.0 override, match:class ^(mpv)$"
+        "opacity 1.0 override, match:fullscreen 1"
       ];
 
       animations = {
