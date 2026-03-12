@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   programs.nvf.settings.vim = {
     # Statusline (lualine)
     statusline.lualine.enable = true;
@@ -26,6 +27,6 @@
       fidget-nvim.enable = true;
     };
     theme.name = lib.mkForce "tokyonight";
-    theme.style = lib.mkForce "dark";
+    theme.style = lib.mkForce "moon";
   };
 }
