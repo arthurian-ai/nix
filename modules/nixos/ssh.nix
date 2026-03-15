@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.sshHardening;
+  cfg = config.custom.ssh;
 in {
-  options.custom.sshHardening = {
+  options.custom.ssh = {
     enable = lib.mkEnableOption "SSH hardening";
 
     allowPasswordAuth = lib.mkOption {

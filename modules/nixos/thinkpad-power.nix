@@ -53,9 +53,23 @@ in {
       default = true;
       description = "Enable fwupd for firmware updates including ThinkPad UEFI/EC";
     };
+
+    disableIntelPSR = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Disable Intel Panel Self Refresh (PSR) via kernel parameter (xe.enable_psr=0).
+        Enable this if you experience screen flickering, stretching, or corruption on
+        ThinkPad X1 Gen 13 with Intel Arc/Xe graphics. Known bug in the xe driver's
+        PSR implementation on this hardware generation.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    # Disable Intel PSR if requested (fixes screen flickering/corruption on xe driver)
+    boot.kernelParams = lib.mkIf cfg.disableIntelPSR [ "xe.enable_psr=0" ];
+
     # Intel microcode and redistributable firmware (covers ThinkPad WiFi/Bluetooth)
     hardware.enableRedistributableFirmware = true;
     hardware.enableAllFirmware = true;

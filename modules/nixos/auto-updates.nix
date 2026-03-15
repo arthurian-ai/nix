@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.autoUpdate;
+  cfg = config.custom.autoUpdates;
 in {
-  options.custom.autoUpdate = {
+  options.custom.autoUpdates = {
     enable = lib.mkEnableOption "automatic NixOS updates";
 
     dates = lib.mkOption {

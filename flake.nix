@@ -73,7 +73,7 @@
       commonConfig
       // {
         username = "curtis";
-        hostname = "nixos";
+        hostname = "thinkpad";
       };
 
     desktopConfig =

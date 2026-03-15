@@ -29,10 +29,10 @@
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/tailscale.nix
     ../../modules/nixos/thinkpad-power.nix
-    ../../modules/nixos/ssh-hardening.nix
+    ../../modules/nixos/ssh.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/fail2ban.nix
-    ../../modules/nixos/auto-update.nix
+    ../../modules/nixos/auto-updates.nix
     ../../modules/shared/emacs.nix
   ];
 
@@ -59,10 +59,12 @@
     lidSuspend = true;
     lidSuspendExternalPower = true;
     enableFirmwareUpdates = true;
+    # Set to true if you experience screen flickering or corruption (xe driver PSR bug)
+    disableIntelPSR = false;
   };
 
   # SSH hardening
-  custom.sshHardening = {
+  custom.ssh = {
     enable = true;
     allowPasswordAuth = false;
     allowRootLogin = "no";
@@ -83,7 +85,7 @@
   };
 
   # Automatic nix store garbage collection (updates managed manually for ThinkPad)
-  custom.autoUpdate = {
+  custom.autoUpdates = {
     enable = true;
     gcEnable = true;
     gcDates = "weekly";
@@ -123,11 +125,6 @@
 
   # Use latest kernel for best ThinkPad X1 Gen 13 hardware support.
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # Disable Intel PSR (Panel Self Refresh) to fix screen stretching/corruption crashes.
-  # The xe driver's PSR implementation has known bugs on Intel Arc/Xe hardware.
-  # Uncomment if you experience screen flickering or corruption:
-  # boot.kernelParams = [ "xe.enable_psr=0" ];
 
   # Intel graphics: enable hardware acceleration and GuC/HuC firmware loading
   hardware.graphics = {
@@ -178,7 +175,12 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # or -wlr for wlroots compositors
+    # xdg-desktop-portal-hyprland provides native Hyprland integration (file picker, screenshots, etc.)
+    # xdg-desktop-portal-gtk provides fallback for GTK applications
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   # Enable CUPS to print documents.
