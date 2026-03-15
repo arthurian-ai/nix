@@ -27,6 +27,7 @@
     ../../modules/nixos/thunar.nix
     ../../modules/nixos/regreet.nix
     ../../modules/nixos/virtualization.nix
+    ../../modules/nixos/tailscale.nix
     ../../modules/shared/emacs.nix
   ];
 

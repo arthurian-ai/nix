@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   environment.systemPackages = with pkgs; [
     ripgrep
     fd
@@ -36,5 +37,6 @@
     darktable
     zoom-us
     slack
+    telegram-desktop
   ];
 }
