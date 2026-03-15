@@ -28,6 +28,11 @@
     ../../modules/nixos/regreet.nix
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/tailscale.nix
+    ../../modules/nixos/thinkpad-power.nix
+    ../../modules/nixos/ssh-hardening.nix
+    ../../modules/nixos/firewall.nix
+    ../../modules/nixos/fail2ban.nix
+    ../../modules/nixos/auto-update.nix
     ../../modules/shared/emacs.nix
   ];
 
@@ -44,24 +49,53 @@
     transparency = true;
   };
 
+  # ThinkPad power management and firmware
+  custom.thinkpadPower = {
+    enable = true;
+    tlpEnable = true;
+    acpiCallEnable = true;
+    batteryChargeStartThreshold = 75;
+    batteryChargeStopThreshold = 80;
+    lidSuspend = true;
+    lidSuspendExternalPower = true;
+    enableFirmwareUpdates = true;
+  };
+
+  # SSH hardening
+  custom.sshHardening = {
+    enable = true;
+    allowPasswordAuth = false;
+    allowRootLogin = "no";
+  };
+
+  # Firewall rules
+  custom.firewall = {
+    enable = true;
+    logRefusedConnections = true;
+  };
+
+  # fail2ban intrusion prevention
+  custom.fail2ban = {
+    enable = true;
+    enableSSHJail = true;
+    maxRetry = 5;
+    banTime = "1h";
+  };
+
+  # Automatic nix store garbage collection (updates managed manually for ThinkPad)
+  custom.autoUpdate = {
+    enable = true;
+    gcEnable = true;
+    gcDates = "weekly";
+    gcMaxAge = "30d";
+  };
+
   # For noctalia shell
   hardware.bluetooth.enable = true;
   services.tuned.enable = true;
-  services.upower.enable = true;
 
   # Fingerprint reader
   services.fprintd.enable = true;
-
-  # Lid close behavior
-  # services.logind = {
-  #   lidSwitch = "suspend";
-  #   lidSwitchExternalPower = "suspend";
-  #   lidSwitchDocked = "ignore";
-  #   # lidSwitchIgnoreInhibited = true;
-  #   extraConfig = ''
-  #     HoldoffTimeoutSec=2s
-  #   '';
-  # };
 
   home-manager = {
     extraSpecialArgs = { inherit inputs hostConfig; };
@@ -87,12 +121,22 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
+  # Use latest kernel for best ThinkPad X1 Gen 13 hardware support.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Disable Intel PSR (Panel Self Refresh) to fix screen stretching/corruption crashes.
-  # The xe driver's PSR implementation is buggy on this hardware.
+  # The xe driver's PSR implementation has known bugs on Intel Arc/Xe hardware.
+  # Uncomment if you experience screen flickering or corruption:
   # boot.kernelParams = [ "xe.enable_psr=0" ];
+
+  # Intel graphics: enable hardware acceleration and GuC/HuC firmware loading
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver  # VAAPI for Intel Arc/Xe (iHD driver)
+      intel-compute-runtime  # OpenCL support
+    ];
+  };
 
   networking.hostName = hostConfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

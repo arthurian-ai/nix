@@ -10,7 +10,10 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  # kvm-intel: Intel hardware virtualization support
+  # thinkpad_acpi: ThinkPad ACPI extras (fan control, battery thresholds, hotkeys)
+  # intel_pstate: Intel P-state CPU frequency driver for better power management
+  boot.kernelModules = [ "kvm-intel" "thinkpad_acpi" "intel_pstate" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
