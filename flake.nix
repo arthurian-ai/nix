@@ -83,6 +83,13 @@
         hostname = "nixos-desktop";
       };
 
+    xpsConfig =
+      commonConfig
+      // {
+        username = "curtis";
+        hostname = "nixos-xps";
+      };
+
     mbpConfig =
       commonConfig
       // {
@@ -129,6 +136,14 @@
         specialArgs = {
           inherit self inputs;
           hostConfig = thinkpadConfig;
+        };
+      };
+      xps = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [./hosts/xps];
+        specialArgs = {
+          inherit self inputs;
+          hostConfig = xpsConfig;
         };
       };
     };

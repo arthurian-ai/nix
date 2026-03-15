@@ -10,10 +10,16 @@ This fork is maintained by the arthurian-ai account; the upstream repository is
 
 ### Added
 
+#### XPS Host Registration (`flake.nix`)
+
+- Added `xps` to `nixosConfigurations` with a dedicated `xpsConfig`
+  (`hostname = "nixos-xps"`, `username = "curtis"`) — XPS was previously
+  missing from flake outputs, making `nixos-rebuild --flake .#xps` non-functional
+
 #### Security Hardening Modules (`modules/nixos/`)
 
-- **`ssh-hardening.nix`** — Configurable OpenSSH server hardening module
-  (`custom.sshHardening`):
+- **`ssh.nix`** — Configurable OpenSSH server hardening module (`custom.ssh`):
+  *(formerly `ssh-hardening.nix` / `custom.sshHardening` — renamed for consistency)*
   - Restricts ciphers to ChaCha20-Poly1305 and AES-GCM variants
   - Restricts MACs to ETMAC variants (encrypt-then-MAC)
   - Restricts key exchange to Curve25519 and DH group 16/18
@@ -34,7 +40,8 @@ This fork is maintained by the arthurian-ai account; the upstream repository is
   - Incremental ban times with 2x multiplier up to 48 hours
   - Ignores loopback addresses; configurable allowlist of trusted IPs
 
-- **`auto-update.nix`** — Automatic NixOS system maintenance (`custom.autoUpdate`):
+- **`auto-updates.nix`** — Automatic NixOS system maintenance (`custom.autoUpdates`):
+  *(formerly `auto-update.nix` / `custom.autoUpdate` — renamed for consistency)*
   - Configurable automatic `nixos-rebuild` (disabled on ThinkPad by default —
     users prefer manual control on laptops)
   - Nix store garbage collection on a weekly schedule, keeping 30 days of
@@ -87,10 +94,17 @@ This fork is maintained by the arthurian-ai account; the upstream repository is
 - **Lid suspend**: Was entirely commented out in the original config — now
   active via `thinkpad-power.nix` which configures `services.logind` with
   proper suspend-on-lid-close behavior
-- **PSR workaround**: Added explanatory comment for the `xe.enable_psr=0`
-  kernel parameter that addresses screen corruption on Intel Xe hardware
-- **Security modules**: Wired `ssh-hardening`, `firewall`, `fail2ban`, and
-  `auto-update` (GC-only mode) into the ThinkPad host configuration
+- **XDG portal**: Changed `extraPortals` from `xdg-desktop-portal-gtk` (wrong
+  for Hyprland) to both `xdg-desktop-portal-hyprland` (native Wayland/Hyprland
+  integration for file pickers and screenshots) and `xdg-desktop-portal-gtk`
+  (fallback for GTK apps)
+- **Hostname collision**: ThinkPad hostname changed from `"nixos"` (same as VMs)
+  to `"thinkpad"` — prevents network identification conflicts
+- **PSR option**: Moved Intel PSR workaround (`xe.enable_psr=0`) from an
+  inline comment in `default.nix` into a proper `disableIntelPSR` option on the
+  `custom.thinkpadPower` module; toggled via `thinkpad-power.nix` kernel params
+- **Security modules**: Wired `ssh`, `firewall`, `fail2ban`, and `auto-updates`
+  (GC-only mode) into the ThinkPad host configuration
 
 ---
 
