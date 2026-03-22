@@ -98,5 +98,8 @@
     {
       nixosConfigurations = nixpkgs.lib.mapAttrs mkNixos nixosHosts;
       darwinConfigurations = nixpkgs.lib.mapAttrs mkDarwin darwinHosts;
+
+      # ── Overlays ──────────────────────────────────────────────────
+      overlays.default = import ./overlays/dnsenum.nix;
     };
 }
