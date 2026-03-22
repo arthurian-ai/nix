@@ -1,86 +1,109 @@
-# Nix Configuration Architecture
+# Architecture
 
-This repository is a flake-based system and home environment configuration for Linux (NixOS) and macOS (nix-darwin + Home Manager).
+## Overview
 
-## Top-Level Layout
+This flake uses a **data-driven** design: a single host inventory drives the
+generation of all NixOS and Darwin system configurations.
 
-- `flake.nix`: Entry point. Declares all inputs and composes host configurations.
-- `hosts/`: Machine-specific operating system definitions.
-- `modules/`: Reusable NixOS and Darwin modules.
-- `home/`: Home Manager profiles split into shared and platform-specific pieces.
-- `overlays/`: Package overlays.
-- `secrets/`: Secret references and encrypted secret metadata.
-- `reference/`: Optional profile/package references.
+## Directory Layout
 
-## Configuration Flow
+```
+.
+├── flake.nix                   # Orchestrator — generates outputs from inventory
+├── lib/
+│   ├── hosts.nix               # Host inventory (data only)
+│   ├── mk-nixos-host.nix       # NixOS system constructor
+│   └── mk-darwin-host.nix      # Darwin system constructor
+├── hosts/                      # Per-host entrypoints (hardware + overrides)
+│   ├── desktop/
+│   ├── thinkpad/
+│   ├── kvm/
+│   ├── parallels-vm/
+│   └── mbp/
+├── modules/
+│   ├── nixos/
+│   │   ├── base.nix            # Shared NixOS foundation
+│   │   ├── profiles/
+│   │   │   ├── workstation.nix  # Physical workstation profile
+│   │   │   └── vm.nix          # VM profile
+│   │   └── *.nix               # Feature modules (hyprland, keyd, etc.)
+│   ├── darwin/
+│   │   ├── base.nix            # Shared Darwin foundation
+│   │   └── *.nix               # Feature modules (homebrew, fonts, etc.)
+│   └── shared/
+│       └── emacs.nix           # Cross-platform modules
+├── home/
+│   ├── profiles/
+│   │   ├── base.nix            # Shared HM defaults
+│   │   ├── linux-workstation.nix
+│   │   ├── vm.nix
+│   │   └── darwin.nix
+│   ├── desktop/                # Thin wrapper → linux-workstation profile
+│   ├── laptop/                 # Thin wrapper → linux-workstation profile
+│   ├── vm/                     # Thin wrapper → vm profile
+│   ├── darwin/                 # Thin wrapper → darwin profile
+│   ├── shared/                 # Cross-platform HM modules
+│   └── nixos/                  # Linux-only HM modules
+├── overlays/
+│   ├── dnsenum.nix             # Overlay function (final: prev: shape)
+│   └── default.nix             # NixOS module wrapper for the overlay
+├── reference/
+│   ├── inactive-hosts/         # Archived hosts (xps, utm-vm, vm-common)
+│   └── *.nix                   # Security package reference lists
+└── secrets/
+    └── secrets.nix
+```
 
-1. `flake.nix` defines `nixosConfigurations` and `darwinConfigurations`.
-2. Each host in `hosts/` imports system modules from `modules/`.
-3. Each host also enables Home Manager and selects one profile under `home/`.
-4. Home profiles import shared modules from `home/shared/` plus platform-specific files from `home/nixos/` or `home/darwin/`.
+## How It Works
 
-This keeps host-level concerns (kernel, services, hardware) separate from user-level concerns (shell, editor, app settings).
+1. **`lib/hosts.nix`** defines every active host as an attribute set with
+   metadata: `kind`, `system`, `username`, `hostname`, `role`, and feature
+   flags like `isLaptop`, `hasNvidia`, `monitors`.
 
-## Home Manager Structure
+2. **`flake.nix`** imports the inventory, merges `_defaults` into each host,
+   partitions by `kind` (nixos vs darwin), and maps the appropriate constructor
+   over each partition.
 
-- `home/shared/`: Common user tools and app modules used by multiple profiles.
-- `home/desktop/default.nix`: Desktop Linux Home Manager profile.
-- `home/laptop/default.nix`: Laptop Linux Home Manager profile (used by thinkpad host).
-- `home/darwin/default.nix`: macOS Home Manager profile.
-- `home/vm/default.nix`: VM-oriented Linux Home Manager profile.
+3. **Constructors** (`mk-nixos-host.nix`, `mk-darwin-host.nix`) are thin
+   wrappers around `nixosSystem` / `darwinSystem` that pass `hostConfig` via
+   `specialArgs`.
 
-Shared modules are imported explicitly per profile to keep behavior easy to reason about.
+4. **Host entrypoints** (`hosts/<name>/default.nix`) import their hardware
+   config and one system profile, then add machine-specific overrides.
 
-## Claude Code and Superpowers
+5. **System profiles** (`modules/*/profiles/`) compose feature modules and set
+   role-wide defaults. Host-specific branches use `hostConfig` fields.
 
-Claude Code configuration now lives in:
+6. **Home Manager profiles** (`home/profiles/`) follow the same pattern:
+   `base.nix` for universal defaults, then role-specific profiles that add
+   the right programs and settings.
 
-- `home/shared/claude-code.nix`
+## Active Hosts
 
-This module enables `programs.claude-code` and configures Superpowers declaratively through Claude plugin settings:
+| Name          | Kind   | System          | Role        |
+|---------------|--------|-----------------|-------------|
+| desktop       | nixos  | x86_64-linux    | workstation |
+| thinkpad      | nixos  | x86_64-linux    | workstation |
+| kvm           | nixos  | x86_64-linux    | vm          |
+| parallels-vm  | nixos  | aarch64-linux   | vm          |
+| mbp           | darwin | aarch64-darwin  | darwin      |
 
-- Adds the marketplace source `obra/superpowers-marketplace`.
-- Enables plugin `superpowers@superpowers-marketplace`.
+## Archived Hosts
 
-The module is imported by:
+Moved to `reference/inactive-hosts/`:
+- **xps** — old laptop, not in flake outputs
+- **utm-vm** — empty placeholder
+- **vm-common** — referenced missing hardware-configuration.nix
 
-- `home/desktop/default.nix`
-- `home/laptop/default.nix`
-- `home/darwin/default.nix`
+## Overlays
 
-Result: desktop, thinkpad (via laptop profile), and darwin all receive the same Claude Code + Superpowers setup from one shared file.
+The flake exports `overlays.default` (the dnsenum Perl fix). Hosts that need
+it import `../../overlays` which is a NixOS module applying
+`self.overlays.default`.
 
-## Codex and Superpowers
+## Adding a New Host
 
-Codex configuration now lives in:
-
-- `home/shared/codex.nix`
-
-This module enables `programs.codex`, turns on Codex multi-agent support, and wires Superpowers skills declaratively:
-
-- `features.multi_agent = true`
-- `skills.superpowers = inputs.superpowers + "/skills"`
-
-The module is imported by:
-
-- `home/desktop/default.nix`
-- `home/laptop/default.nix`
-- `home/darwin/default.nix`
-
-Result: desktop, thinkpad (via laptop profile), and darwin get Codex with the Superpowers skillset via Home Manager.
-
-## Tailscale Configuration
-
-- Linux hosts use `modules/nixos/tailscale.nix`.
-- Darwin hosts use `modules/darwin/tailscale.nix`.
-
-This split keeps platform-specific options isolated while preserving common behavior:
-
-- NixOS applies `--shields-up` with `services.tailscale.extraSetFlags`.
-- Darwin enables `services.tailscale` and applies `tailscale set --shields-up` during activation.
-
-## Why This Shape
-
-- Shared behavior is centralized in `home/shared/` to avoid duplication.
-- Host-specific behavior remains isolated under `hosts/` and `modules/`.
-- Profile wiring is explicit, so enabling/disabling a capability is a one-line import change per profile.
+1. Add an entry to `lib/hosts.nix`.
+2. Add the host module path to `hostModules` in `flake.nix`.
+3. Create `hosts/<name>/default.nix` importing hardware-config + a profile.
+4. Set any machine-specific overrides and wire up Home Manager.
