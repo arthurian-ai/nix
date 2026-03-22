@@ -62,92 +62,41 @@
       superpowers,
     }:
     let
-      # Common settings
-      commonConfig = {
-        timezone = "America/Los_Angeles";
-        locale = "en_US.UTF-8";
+      # ── Host inventory ──────────────────────────────────────────────
+      rawHosts = import ./lib/hosts.nix;
+      defaults = rawHosts._defaults;
+
+      # Merge defaults into each host entry, drop the _defaults key
+      hosts = nixpkgs.lib.mapAttrs
+        (_: meta: defaults // meta)
+        (builtins.removeAttrs rawHosts [ "_defaults" ]);
+
+      # ── Partition by kind ───────────────────────────────────────────
+      nixosHosts = nixpkgs.lib.filterAttrs (_: m: m.kind == "nixos") hosts;
+      darwinHosts = nixpkgs.lib.filterAttrs (_: m: m.kind == "darwin") hosts;
+
+      # ── Host module paths (must be literal for flake pure eval) ───
+      hostModules = {
+        desktop = ./hosts/desktop;
+        thinkpad = ./hosts/thinkpad;
+        kvm = ./hosts/kvm;
+        parallels-vm = ./hosts/parallels-vm;
+        mbp = ./hosts/mbp;
       };
 
-      # Per-host settings
-      vmConfig = commonConfig // {
-        username = "citrus";
-        hostname = "nixos";
+      # ── Constructors ───────────────────────────────────────────────
+      mkNixos = name: meta: import ./lib/mk-nixos-host.nix {
+        inherit inputs self nixpkgs name meta;
+        hostModule = hostModules.${name};
       };
 
-      thinkpadConfig = commonConfig // {
-        username = "curtis";
-        hostname = "nixos";
-        monitors = [ "eDP-1, 2880x1800@120, auto, 2" ];
-        isLaptop = true;
-        hasNvidia = false;
-      };
-
-      desktopConfig = commonConfig // {
-        username = "curtis";
-        hostname = "nixos-desktop";
-        monitors = [ ", preferred, auto, 1" ];
-        isLaptop = false;
-        hasNvidia = true;
-      };
-
-      mbpConfig = commonConfig // {
-        username = "curtis";
-        hostname = "mbp";
+      mkDarwin = name: meta: import ./lib/mk-darwin-host.nix {
+        inherit inputs self nix-darwin name meta;
+        hostModule = hostModules.${name};
       };
     in
     {
-      nixosConfigurations = {
-        parallels-vm = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [ ./hosts/parallels-vm ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = vmConfig;
-          };
-        };
-        utm-vm = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [ ./hosts/utm-vm ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = vmConfig;
-          };
-        };
-        kvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/kvm ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = vmConfig;
-          };
-        };
-        desktop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/desktop ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = desktopConfig;
-          };
-        };
-        thinkpad = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/thinkpad ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = thinkpadConfig;
-          };
-        };
-      };
-
-      darwinConfigurations = {
-        mbp = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [ ./hosts/mbp ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = mbpConfig;
-          };
-        };
-      };
+      nixosConfigurations = nixpkgs.lib.mapAttrs mkNixos nixosHosts;
+      darwinConfigurations = nixpkgs.lib.mapAttrs mkDarwin darwinHosts;
     };
 }
